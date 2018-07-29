@@ -13,17 +13,24 @@ function match() {
     vibe.sort()
     vision.sort()
     
+    var numVibeMatch = 0;
+    var numVisionMatch = 0;
     // For each descriptor x in vibe, search for x in controlVibe
     for (var i = 0; i < vibe.length; i++) {
-        binarySearch
+        
+        if (binarySearch(vibeControl, vibe[i]) != -1) {
+            numVibeMatch += 1;
+        }
     }
-    binarySearch()
-    
-    // For each descriptor y in vision, search for y in controlVision
-    
-//    document.writeln("<h1>Your Vibe Profile</h1><br>");
-//    document.writeln("You described your vibe as " + vibe + "<br>");
-//    document.writeln("You described your vision as " + vision + "<br>");
+    var percentVibeMatch = 1.0*numVibeMatch/3;
+    for (var i = 0; i < vision.length; i++) {
+        if (binarySearch(visionControl, vision[i]) != -1) {
+            numVisionMatch += 1;
+        }
+    }
+    var percentVisionMatch = 1.0*numVisionMatch/3;
+    var percentages = new Array(percentVibeMatch, percentVisionMatch);
+    return percentages;
 }
 
 /** 
