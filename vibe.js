@@ -32,6 +32,15 @@ function match() {
     var percentages = new Array(percentVibeMatch, percentVisionMatch);
     console.log("Percent match in vibe: " + percentVibeMatch);
     console.log("Percent match in vision: " + percentVisionMatch);
+    
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://schangwv:mymL2b!@ds157901.mlab.com:57901/vibematch";
+
+    MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    console.log("Database created!");
+    db.close();
+});
 }
 
 /** 
