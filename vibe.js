@@ -30,7 +30,8 @@ function match() {
     }
     var percentVisionMatch = 1.0*numVisionMatch/3;
     var percentages = new Array(percentVibeMatch, percentVisionMatch);
-    return percentages;
+    console.log("Percent match in vibe: " + percentVibeMatch);
+    console.log("Percent match in vision: " + percentVisionMatch);
 }
 
 /** 
