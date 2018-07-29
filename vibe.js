@@ -1,48 +1,5 @@
 "use strict";
 
-
-function match() {
-    var controlVibe = ["adventurous", "ambitious", "compassionate"]
-    var controlVision = ["entrepreneur", "successful", "travel"]
-    
-    var vibe = document.getElementById("vibe").value;
-    var vision = document.getElementById("vision").value;
-    vibe = vibe.split(',');
-    vision = vision.split(',');
-    
-    vibe.sort()
-    vision.sort()
-    
-    var numVibeMatch = 0;
-    var numVisionMatch = 0;
-    // For each descriptor x in vibe, search for x in controlVibe
-    for (var i = 0; i < vibe.length; i++) {
-        
-        if (binarySearch(vibeControl, vibe[i]) != -1) {
-            numVibeMatch += 1;
-        }
-    }
-    var percentVibeMatch = 1.0*numVibeMatch/3;
-    for (var i = 0; i < vision.length; i++) {
-        if (binarySearch(visionControl, vision[i]) != -1) {
-            numVisionMatch += 1;
-        }
-    }
-    var percentVisionMatch = 1.0*numVisionMatch/3;
-    var percentages = new Array(percentVibeMatch, percentVisionMatch);
-    console.log("Percent match in vibe: " + percentVibeMatch);
-    console.log("Percent match in vision: " + percentVisionMatch);
-    
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://schangwv:mymL2b!@ds157901.mlab.com:57901/vibematch";
-
-    MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    console.log("Database created!");
-    db.close();
-});
-}
-
 /** 
 * Copyright 2009 Nicholas C. Zakas. All rights reserved.
 * MIT-Licensed
@@ -72,3 +29,46 @@ function binarySearch(items, value){
     //make sure it's the right value
     return (items[middle] != value) ? -1 : middle;
 }
+
+function match() {
+    var controlVibe = ["adventurous", "ambitious", "compassionate"]
+    var controlVision = ["entrepreneur", "successful", "travel"]
+    
+    var vibe = document.getElementById("vibe").value;
+    var vision = document.getElementById("vision").value;
+    vibe = vibe.split(',');
+    vision = vision.split(',');
+    
+    vibe.sort()
+    vision.sort()
+    
+    var numVibeMatch = 0;
+    var numVisionMatch = 0;
+    // For each descriptor x in vibe, search for x in controlVibe
+    for (var i = 0; i < vibe.length; i++) {
+        
+        if (binarySearch(controlVibe, vibe[i]) != -1) {
+            numVibeMatch += 1;
+        }
+    }
+    var percentVibeMatch = 1.0*numVibeMatch/3;
+    for (var i = 0; i < vision.length; i++) {
+        if (binarySearch(controlVision, vision[i]) != -1) {
+            numVisionMatch += 1;
+        }
+    }
+    var percentVisionMatch = 1.0*numVisionMatch/3;
+    var percentages = new Array(percentVibeMatch, percentVisionMatch);
+    console.log("Percent match in vibe: " + percentVibeMatch);
+    console.log("Percent match in vision: " + percentVisionMatch);
+    
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://schangwv:mymL2b!@ds157901.mlab.com:57901/vibematch";
+
+    MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    console.log("Database created!");
+    db.close();
+});
+}
+
